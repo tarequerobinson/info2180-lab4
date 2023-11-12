@@ -2,8 +2,13 @@
 
 const searchButton=document.getElementById("searchbutton");
 const resultDiv=document.getElementById("result");
-
+const searchField = document.getElementById("searchField");
 console.log(searchButton);
+console.log(searchField);
+
+const searchText = searchField.value;
+console.log(searchText);
+
 
 
 searchButton.addEventListener("click", resultFunction);
@@ -20,11 +25,52 @@ searchButton.addEventListener("click", resultFunction);
 
 async function resultFunction () {
     console.log("resultFunction triggered");
-    const response = await fetch("http://localhost/info2180-lab4/superheroes.php");
+    // location. reload()
+    resultDiv.innerHTML= "";
+
+
+    const url = `http://localhost/info2180-lab4/superheroes.php?query=${searchText}`;
+    console.log("URL:"+ url);
+    const response = await fetch(url);
     const htmlContent = await response.text();
+
     resultDiv.innerHTML= htmlContent;
-    // alert(htmlContent);
+    console.log(resultDiv.innerHTML);
+    // location. reload()
+
 }
+
+
+
+
+    // const sanitizedSearchText = DOMPurify.sanitize(searchText);
+    // console.log(sanitizedSearchText);
+
+
+
+
+
+
+    // if (searchText == null){
+    // const response = await fetch(url);
+    // const htmlContent = await response.text();
+    // resultDiv.innerHTML= htmlContent;
+    // }
+    // else {
+
+
+
+    // }
+    // alert(htmlContent);
+
+
+
+// function sanitizeInput (input){
+
+// return input;
+
+
+// }
 
 
 

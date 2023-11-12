@@ -65,10 +65,35 @@ $superheroes = [
   ], 
 ];
 
+// Get the search query from the URL
+$searchQuery = isset($_GET['query']) ? $_GET['query'] : '';
+
+// Filter superheroes based on the search query
+$filteredSuperheroes = [];
+foreach ($superheroes as $superhero) {
+    if ((stripos($superhero['alias'], $searchQuery) !== false) || (stripos($superhero['name'], $searchQuery) !== false)) {
+        $filteredSuperheroes[] = $superhero;
+    }
+}
+
+
 ?>
 
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
+
+
+<?php if ($searchQuery === ''): ?>
+    <ul>
+        <?php foreach ($superheroes as $superhero): ?>
+            <li><?= $superhero['alias']; ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php else: ?>
+    <?php foreach ($filteredSuperheroes as $superhero): ?>
+        <h3><?= $superhero['alias']; ?></h3>
+        <h4><?= $superhero['name']; ?></h4>
+        <p><?= $superhero['biography']; ?></p>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+
+
