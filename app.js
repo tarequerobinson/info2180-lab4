@@ -11,8 +11,10 @@ console.log(searchText);
 
 
 
-searchButton.addEventListener("click", resultFunction);
-
+searchButton.addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent the default form submission    
+    resultFunction();
+});
 // searchButton.addEventListener("click", alertFunction);
 
 // async function alertFunction () {
