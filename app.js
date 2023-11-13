@@ -6,15 +6,14 @@ const searchField = document.getElementById("searchField");
 console.log(searchButton);
 console.log(searchField);
 
-const searchText = searchField.value;
-console.log(searchText);
-
 
 
 
 
 searchButton.addEventListener("click", function(event) {
-    event.preventDefault(); // Prevent the default form submission    
+    event.preventDefault(); // Prevent the default form submission  
+    // location. reload()
+  
     resultFunction();
 });
 // searchButton.addEventListener("click", alertFunction);
@@ -28,19 +27,32 @@ searchButton.addEventListener("click", function(event) {
 // }
 
 async function resultFunction () {
+
     console.log("resultFunction triggered");
+    const searchText = searchField.value;
+    console.log(searchText);
+
+
+
     // location. reload()
-    resultDiv.innerHTML= "";
+    // resultDiv.innerHTML= "";
 
 
     const url = `http://localhost/info2180-lab4/superheroes.php?query=${sanitize(searchText)}`;
     console.log("URL:"+ url);
     const response = await fetch(url);
     const htmlContent = await response.text();
+    console.log(htmlContent);
+
+
+    // location. reload()
 
     resultDiv.innerHTML= htmlContent;
+    // resultDiv.innerHTML= "";
+
+        // location. reload()
+
     console.log(resultDiv.innerHTML);
-    // location. reload()
 
 }
 
