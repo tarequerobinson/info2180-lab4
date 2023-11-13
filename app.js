@@ -11,6 +11,8 @@ console.log(searchText);
 
 
 
+
+
 searchButton.addEventListener("click", function(event) {
     event.preventDefault(); // Prevent the default form submission    
     resultFunction();
@@ -31,7 +33,7 @@ async function resultFunction () {
     resultDiv.innerHTML= "";
 
 
-    const url = `http://localhost/info2180-lab4/superheroes.php?query=${searchText}`;
+    const url = `http://localhost/info2180-lab4/superheroes.php?query=${sanitize(searchText)}`;
     console.log("URL:"+ url);
     const response = await fetch(url);
     const htmlContent = await response.text();
@@ -42,38 +44,34 @@ async function resultFunction () {
 
 }
 
+function sanitize(userInput) {
+ 
+    // Sanitize the user input using the replace method
+    const sanitizedInput = replaceSpecialCharacters(userInput);
 
+    console.log("sanitize function triggered");
+    console.log(sanitizedInput);
 
+    return sanitizedInput ;
 
-    // const sanitizedSearchText = DOMPurify.sanitize(searchText);
-    // console.log(sanitizedSearchText);
+}
 
+function replaceSpecialCharacters(input) {
 
+    console.log("replaceSpecialCharacters function triggered")
 
+    // Define a regular expression to match characters with special meanings in HTML
+    const regex = /[&<>"'/]/g;
 
+    // Replace the matched characters with their corresponding HTML entities
+    const replacements = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+        "/": "&#x2F;"
+    };
 
-
-    // if (searchText == null){
-    // const response = await fetch(url);
-    // const htmlContent = await response.text();
-    // resultDiv.innerHTML= htmlContent;
-    // }
-    // else {
-
-
-
-    // }
-    // alert(htmlContent);
-
-
-
-// function sanitizeInput (input){
-
-// return input;
-
-
-// }
-
-
-
-
+    return input.replace(regex, match => replacements[match]);
+}
